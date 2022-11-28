@@ -2,9 +2,10 @@
 # install OhMyPosh & theme for powershell & git bash
 # theme based on: https://github.com/JanDeDobbeleer/oh-my-posh/blob/main/themes/powerlevel10k_rainbow.omp.json
 # ---------------------------------------
-winget install JanDeDobbeleer.OhMyPosh
+winget install JanDeDobbeleer.OhMyPosh --accept-package-agreements --silent
 
 # install NerdFont
+# !REPLACE YOUR TERMINAL FONT MANUALLY AFTER INSTALLATION
 oh-my-posh font install
 
 # enable PowerShell profile running

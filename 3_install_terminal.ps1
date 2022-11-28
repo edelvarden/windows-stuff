@@ -13,3 +13,5 @@ elseif($winver -like "*Windows 10*" ) {
 else {
     Write-Output "$winver not support"
 }
+
+Start-Process powershell -verb runas -ArgumentList "-file ./4_ohmyposh.ps1"
