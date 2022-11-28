@@ -1,5 +1,5 @@
 Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy Unrestricted
-param([switch]$Elevated)
+#param([switch]$Elevated)
 
 function Test-Admin {
     $currentUser = New-Object Security.Principal.WindowsPrincipal $([Security.Principal.WindowsIdentity]::GetCurrent())
@@ -10,11 +10,10 @@ if ((Test-Admin) -eq $false)  {
     if ($elevated) {
         # tried to elevate, did not work, aborting
     } else {
-        Start-Process powershell.exe -Verb RunAs -ArgumentList ('-noprofile -file "{0}" -elevated' -f ($myinvocation.MyCommand.Definition))
+        Start-Process powershell.exe -Verb RunAs -ArgumentList ('-noprofile -file "{0}" -elevated' -f ($myinvocation.MyCommand.Definition))  | out-null
     }
     exit
 }
-clear
 'Running with full privileges'
 # ---------------------------------------
 # install winget
@@ -61,12 +60,12 @@ function InstallAppInstaller()
 
     Write-Output "Install AppInstaller (winget)"
 
-    $source = Invoke-RestMethod -uri $uri -Method Get -ErrorAction stop
+    $source     = Invoke-RestMethod -uri $uri -Method Get -ErrorAction stop
     $msixbundle = GetFile '.msixbundle' $source
     $license    = GetFile 'License1.xml' $source
 
     # Install AppInstaller (winget)
-    Add-AppxProvisionedPackage -Online -PackagePath $msixbundle -LicensePath $license
+    Add-AppxProvisionedPackage -Online -PackagePath "$msixbundle" -LicensePath "$license"
 
     # Remove temp files
     Remove-Item $msixbundle -Force
@@ -86,10 +85,10 @@ Start-Sleep -Seconds 1.5
 # sourse: https://apps.microsoft.com/store/detail/app-installer/9NBLGGH4NNS1
 # ---------------------------------------
 $msstorePackages = @(
-    "9NBLGGH4NNS1" # AppInstaller
-    "9PG2DK419DRG" # WebpImageExtension
+    "9NBLGGH4NNS1" # AppInstaller       - needed for self-updating winget
+    "9PG2DK419DRG" # WebpImageExtension - add support for webp images
 )
 foreach ($package in $msstorePackages) {
     Write-Output "Install MS Store package $package";
-    winget install $package -s msstore --accept-source-agreements --accept-package-agreements --silent
+    winget install $package -s msstore --accept-source-agreements --accept-package-agreements --silent --force
 }
