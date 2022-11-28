@@ -10,27 +10,15 @@ if ((Test-Admin) -eq $false)  {
     if ($elevated) {
         # tried to elevate, did not work, aborting
     } else {
-        Start-Process powershell.exe -Verb RunAs -ArgumentList ('-noprofile -noexit -file "{0}" -elevated' -f ($myinvocation.MyCommand.Definition))
+        Start-Process powershell.exe -Verb RunAs -ArgumentList ('-noprofile -file "{0}" -elevated' -f ($myinvocation.MyCommand.Definition))
     }
     exit
 }
 clear
-'running with full privileges'
+'Running with full privileges'
 # ---------------------------------------
 # install winget
 # ---------------------------------------
-# source: https://aka.ms/Microsoft.VCLibs.x64.14.00.Desktop.appx
-#Add-AppxPackage -path ".\packages\Microsoft.VCLibs.x64.14.00.Desktop.appx" -ForceUpdateFromAnyVersion
-
-# source: https://www.nuget.org/packages/Microsoft.UI.Xaml/2.7.0
-#Add-AppxPackage -path ".\packages\Microsoft.UI.Xaml.2.7.appx" -ForceUpdateFromAnyVersion
-
-# source: https://github.com/microsoft/winget-cli/releases/
-#Add-AppxProvisionedPackage -Online -PackagePath ".\packages\Microsoft.DesktopAppInstaller.msixbundle" -LicensePath ".\packages\Microsoft.DesktopAppInstaller_License.xml"
-
-#
-#
-#
 $VCLibs             = "https://aka.ms/Microsoft.VCLibs.x64.14.00.Desktop.appx"
 $MicrosoftUIXaml    = "https://www.nuget.org/api/v2/package/Microsoft.UI.Xaml/2.7.0"
 $winget             = "https://api.github.com/repos/microsoft/winget-cli/releases"
