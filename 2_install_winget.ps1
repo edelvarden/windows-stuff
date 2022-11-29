@@ -28,7 +28,7 @@ function InstallMicrosoftUIXaml()
 
     Write-Output "Install Microsoft.UI.Xaml 2.7.0"
 
-    $Path = "{0}\{1}" -f $env:temp, "Microsoft.UI.Xaml2.7.0"
+    $Path = Join-Path -path $env:temp -ChildPath "\Microsoft.UI.Xaml.2.7.0"
     # Downloading Microsoft.UI.Xaml 2.7.0 to $Path
     (New-Object System.Net.WebClient).DownloadFile($URL, "$Path.zip")
 
@@ -36,7 +36,8 @@ function InstallMicrosoftUIXaml()
     Expand-Archive "$Path.zip" -DestinationPath "$Path"
 
     # Install Microsoft.UI.Xaml 2.7.0
-    Add-AppxPackage "$Path\tools\AppX\x64\Release\Microsoft.UI.Xaml.2.7.appx" -ForceUpdateFromAnyVersion
+    $packagePath = Join-Path -path $Path -ChildPath "\tools\AppX\x64\Release\Microsoft.UI.Xaml.2.7.appx"
+    Add-AppxPackage "$packagePath" -ForceUpdateFromAnyVersion
 
     # Remove temp files
     Remove-Item "$Path.zip" -Force
