@@ -184,7 +184,26 @@
           "type": "time"
         }
       ],
-      "type": "rprompt"
+      "type": "prompt"
+    },
+    {
+      "alignment": "left",
+      "newline": true,
+      "segments": [
+        {
+          "foreground": "#D4E157",
+          "foreground_templates": [
+            "{{ if gt .Code 0 }}#cc2222{{ end }}"
+          ],
+          "properties": {
+            "always_enabled": true
+          },
+          "style": "plain",
+          "template": "\u276f ",
+          "type": "exit"
+        }
+      ],
+      "type": "prompt"
     }
   ],
   "console_title_template": "{{ .Shell }} in {{ .Folder }}",

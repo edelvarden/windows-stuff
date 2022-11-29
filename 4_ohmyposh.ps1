@@ -20,11 +20,7 @@ if ((Test-Admin) -eq $false)  {
 # theme based on: https://github.com/JanDeDobbeleer/oh-my-posh/blob/main/themes/powerlevel10k_rainbow.omp.json
 # ---------------------------------------
 winget install JanDeDobbeleer.OhMyPosh --accept-package-agreements --silent
-
-# install NerdFont
-# !REPLACE YOUR TERMINAL FONT MANUALLY AFTER INSTALLATION
 Start-Sleep -Seconds 1.5
-oh-my-posh font install
 
 # enable PowerShell profile running
 Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy Unrestricted
@@ -41,3 +37,7 @@ $psConfig | Out-File -FilePath $documentsFolder\WindowsPowerShell\Microsoft.Powe
 # eval "$(oh-my-posh --init --shell bash --config 'C:\Users\user\Documents\theme.json')"
 $bashConfig = ";clear;eval {0}{1}{2}" -f '"$(oh-my-posh --init --shell bash --config "', "$documentsFolder\$themeFile", '")";'
 $bashConfig | Out-File -FilePath "$env:USERPROFILE\.bashrc" -Force
+
+# install NerdFont
+# !REPLACE YOUR TERMINAL FONT MANUALLY AFTER INSTALLATION
+oh-my-posh font install
