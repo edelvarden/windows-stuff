@@ -19,7 +19,7 @@ if ((Test-Admin) -eq $false)  {
 # install OhMyPosh & theme for powershell & git bash
 # theme based on: https://github.com/JanDeDobbeleer/oh-my-posh/blob/main/themes/powerlevel10k_rainbow.omp.json
 # ---------------------------------------
-winget install JanDeDobbeleer.OhMyPosh --accept-package-agreements --silent
+winget install -e --id JanDeDobbeleer.OhMyPosh --accept-source-agreements --accept-package-agreements --silent
 Start-Sleep -Seconds 1.5
 
 # enable PowerShell profile running
